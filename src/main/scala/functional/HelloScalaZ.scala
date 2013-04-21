@@ -96,12 +96,12 @@ class HelloScalaZ extends FlatSpec with ShouldMatchers {
 
 
 		/** Applicative Functors **/
-		case class PornDude(name:String, age:Int, snakeLength:Double)
+		case class Dude(name:String, age:Int, iQ:Double)
 
-		val applicativePorn = (some("John Holmes") |@| some(75) |@| some(12.0d)){PornDude.apply _}
+		val applicativeTest = (some("Einstein") |@| some(75) |@| some(70.0d)){Dude.apply _}
 
-		assert( applicativePorn ==
-			some(PornDude("John Holmes", 75, 12.0d))
+		assert( applicativeTest ==
+			some(Dude("Einstein", 75, 70.0d))
 		)
 		assert ( (some(9) |@| some(11) |@| some(10)){_ + _ + _} == some(30) )
 		assert ( (some(9) |@| some(11) |@| none[Int]){_ + _ + _} == none )
