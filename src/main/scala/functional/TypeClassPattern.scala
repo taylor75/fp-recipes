@@ -3,7 +3,7 @@ package functional
 import xml.NodeSeq
 
 /*
-* User: ctaylor
+* User: ctaylor => c.f. http://www.casualmiracles.com/2012/05/03/a-small-example-of-the-typeclass-pattern-in-scala/
 * Date: 3/18/13
 * Time: 4:03 PM
 */

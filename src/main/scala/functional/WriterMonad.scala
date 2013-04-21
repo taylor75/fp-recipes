@@ -3,7 +3,7 @@ package functional
 import util.Random
 
 /*
-* User: catayl2
+* User: catayl2 => c.f. http://blog.tmorris.net/posts/the-writer-monad-using-scala-example/
 * Date: 1/4/13
 * Time: 8:07 PM
 */
