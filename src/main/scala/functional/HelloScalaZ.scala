@@ -78,7 +78,12 @@ class HelloScalaZ extends FlatSpec with ShouldMatchers {
 				some(Peep("matt carpenter", 23))
 		)
 
-		/** Monad Combinators **/
+    List(some(Peep("matt", 15)), none[Peep], some(Peep("carpenter", 8))).sumr.getOrElse(peep.zero) assert_===(Peep("mattcarpenter", 23))
+
+    List(none[Peep], none[Peep]).sumr.getOrElse(peep.zero) assert_=== peep.zero
+
+
+    /** Monad Combinators **/
 		assert( List(some(Peep("matt", 15)), some(Peep(" ", 0)), some(Peep("carpenter", 8))).sequence ==
 			some(List(Peep("matt", 15), Peep(" ", 0), Peep("carpenter", 8)))
 		)
