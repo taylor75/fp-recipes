@@ -1,16 +1,18 @@
-package practice.fpbook
+package functional.fpbook
 
-import org.scalatest._
-import matchers.ShouldMatchers
-import practice.fpbook.Genotypes.{Gap, Genotype, RefAllele}
-
+import org.scalatest.FlatSpec
+import org.scalatest.matchers.ShouldMatchers
+import practice.fpbook.Genotypes.{Gap, RefAllele, Genotype}
+import practice.fpbook.{GtBundle, HOFuncs}
+import language.implicitConversions
 
 /*
 * User: catayl2
-* Date: 9/16/12
-* Time: 10:41 AM
+* Date: 7/2/13
+* Time: 8:04 PM
 */
-class Exercises extends FlatSpec with ShouldMatchers {
+
+class FPStreamTest extends FlatSpec with ShouldMatchers {
 
   it should "return None for flatMap over List(Option[Int]) if any option element is None" in {
     val optList = List(Option(5), None)
@@ -36,7 +38,7 @@ class Exercises extends FlatSpec with ShouldMatchers {
 
     println( gtList.map{_.genotypeCall}.mkString )
 
-    println(gtList.collect{refAllele}.flatten.mkString(", "))
+    println(gtList.collect(refAllele).flatten.mkString(", "))
   }
 
   val refAllele = new PartialFunction[Genotype,List[Genotype]] {

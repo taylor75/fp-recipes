@@ -1,5 +1,4 @@
 package practice.fpbook
-import practice.fpbook.Ms.Sum
 
 /*
 * User: catayl2
@@ -7,10 +6,20 @@ import practice.fpbook.Ms.Sum
 * Time: 6:41 PM
 */
 
-trait M[A] {
+trait Identity[A] {
+  def value: A
+  def ~+(a: => A)(implicit s: M[A]): A = s op (value, a)
+}
+
+trait M[A] { self: M[A] =>
   def op(a1:A, a2:A):A
   def zero:A
 }
+
+
+case class Sum[A](value: A) extends Identity[A]
+
+case class Product[A](value: A)
 
 object Ms {
 
@@ -51,14 +60,10 @@ object Ms {
     def zero = Nil
   }
 
-  case class Sum[A](value: A)
-
   implicit def sumMonoid[A](implicit A:M[A]) = new M[Sum[A]] {
     def op(a: Sum[A], b: Sum[A]) = Sum( A.op(a.value, b.value))
     def zero = Sum(A.zero)
   }
-
-  case class Product[A](value: A)
 
   implicit def productMonoid[A](A:M[A]) = new M[Product[A]] {
     def op(a: Product[A], b: Product[A]) = Product(A.op (a.value, b.value))
@@ -72,6 +77,17 @@ object Ms {
 
     def zero = None
   }
+}
+
+object TestSum extends App {
+
+  import Ms.intAddition
+  import Ms.intAddition._
+  import Ms.sumMonoid
+
+
+  implicit val sm = sumMonoid[Int]
+  println(Sum(8) ~+ 9)
 }
 
 object TesterApp extends App {

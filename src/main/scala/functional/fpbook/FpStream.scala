@@ -74,7 +74,6 @@ trait Stream[+A] {
     }
   }
 
-
   def flatMap[B](f:(A => Stream[B])) : Stream[B] = {
     val accumulatorStream:Stream[B] = Stream.empty
     foldRight(accumulatorStream){ (a, b) =>
