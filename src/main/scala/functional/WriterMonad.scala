@@ -25,16 +25,20 @@ case class Logger[LOG, A](log: LOG, value: A) {
 
   def flatMap[B](f: A => Logger[LOG, B])(implicit m: Monoid[LOG]) = {
     val x = f(value)
+    println("appending: log "+log + ", x.log: " + x.log + " with value=" + value)
     Logger(m.append(log, x.log), x.value)
   }
 }
 
 object Logger {
-  def unital[LOG, A](value: A)(implicit m: Monoid[LOG]) =
+  def unital[LOG, A](value: A)(implicit m: Monoid[LOG]) = {
     Logger(m.empty, value)
+  }
 
-  def noLog[A](a: A) =
-    unital[List[String], A](a)
+  def noLog[A](a: A) = {
+    val logger = unital[List[String], A](a)
+    logger
+  }
 }
 
 object Main extends App {
