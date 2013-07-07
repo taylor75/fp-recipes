@@ -55,18 +55,16 @@ object TestApp extends App {
 
 
 object ImplicitClassConverters {
-  import practice.fpbook.Product
+  import practice.fpbook.Prod
 
   implicit class MMInt[T](value:T)(implicit T:M[T]) {
     def +(b:T):T = T.op(value, b)
   }
 
-  implicit class MMult[T](value:Option[Product[T]])(implicit T:M[Option[Product[T]]]) {
-    def *(b:Option[Product[T]]):Option[Product[T]] = T.op(value, b)
+  implicit class MMult[T](value:Option[practice.fpbook.Prod[T]])(implicit T:M[Option[practice.fpbook.Prod[T]]]) {
+    def *(b:Option[practice.fpbook.Prod[T]]):Option[practice.fpbook.Prod[T]] = T.op(value, b)
   }
-  implicit class MMMult[T](value:Option[Product[Option[T]]])(implicit T:M[Option[Product[Option[T]]]]) {
-    def *(b:Option[Product[Option[T]]]):Option[Product[Option[T]]] = T.op(value, b)
-  }
+
 }
 
 object ImplicitClassTest extends App {
