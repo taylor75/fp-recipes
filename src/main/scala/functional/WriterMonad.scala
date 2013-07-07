@@ -1,6 +1,8 @@
 package functional
 
+import practice.fpbook.M
 import util.Random
+import practice.fpbook.Ms.listMonoid
 
 /*
 * User: catayl2 => c.f. http://blog.tmorris.net/posts/the-writer-monad-using-scala-example/
@@ -8,31 +10,19 @@ import util.Random
 * Time: 8:07 PM
 */
 
-trait Monoid[A] {
-  def append(a1: A, a2: A): A
-  def empty: A
-}
-
-object Monoid {
-  implicit def ListMonoid[A]: Monoid[List[A]] = new Monoid[List[A]] {
-    def append(a1: List[A], a2: List[A]) = a1 ::: a2
-    def empty = Nil
-  }
-}
-
 case class Logger[LOG, A](log: LOG, value: A) {
   def map[B](f: A => B) = Logger(log, f(value))
 
-  def flatMap[B](f: A => Logger[LOG, B])(implicit m: Monoid[LOG]) = {
+  def flatMap[B](f: A => Logger[LOG, B])(implicit m: M[LOG]) = {
     val x = f(value)
     println("appending: log "+log + ", x.log: " + x.log + " with value=" + value)
-    Logger(m.append(log, x.log), x.value)
+    Logger(m.op(log, x.log), x.value)
   }
 }
 
 object Logger {
-  def unital[LOG, A](value: A)(implicit m: Monoid[LOG]) = {
-    Logger(m.empty, value)
+  def unital[LOG, A](value: A)(implicit m: M[LOG]) = {
+    Logger(m.zero, value)
   }
 
   def noLog[A](a: A) = {

@@ -108,11 +108,11 @@ object PMs {
 object TestSum extends App {
 
   import Ms.intAddition
-  import Ms.intAddition._
   import Ms.sumMonoid
-
+  import functional.ImplicitClassConverters._
   implicit val sm = sumMonoid[Int]
   println(Sum(8) ~+ 9)
+  println(Sum(8) + Sum(17))
 }
 
 object TesterApp extends App {
@@ -158,13 +158,9 @@ object ProductTesterApp extends App {
   implicit val deezAddition = Ms.dMonoid(Deez[Int](None), {(a:Deez[Int], b:Deez[Int]) => Deez(a.argument + b.argument)})
   implicit val deezAdditionStr = Ms.dMonoid(Deez[String](None), {(a:Deez[String], b:Deez[String]) => Deez(a.argument + b.argument)})
 
-  println(
-    Some(Product(33)) * Some(Product(3)) // Some(Product(0))
-	)
+  println( Some(Product(33)) * Some(Product(3)) )
 
-  println(
-    Some(Product(33)) * None // None
-  )
+  println( Some(Product(33)) * None )
 
   println(Some(Product(9)) * Some(Product(8)))
 
